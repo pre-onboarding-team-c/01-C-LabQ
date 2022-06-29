@@ -9,9 +9,13 @@
 |김영우|C|팀원|[@whoamixzerone](https://github.com/whoamixzerone)|whoamixzerone@gmail.com|
 |황시우|C|팀원|[@nicesiu](https://github.com/nicesiu)|siuh0403@gmail.com|
 
-## Table of contents
-
 
 ## Environment
 ![node](https://img.shields.io/badge/node-v16.15.1-3776AB?&style=plastic&logo=JavaScript&logoColor=white?label=healthinesses)
 ![npm](https://img.shields.io/badge/npm-8.13.1-7986cb?&style=plastic&logo=npm&logoColor=white?label=healthinesses)
+
+## Table of contents
+
+
+## Convention
+### git convention
