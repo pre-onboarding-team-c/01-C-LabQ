@@ -1,7 +1,9 @@
 const SERVICE_DRAINPIPEMONITORINGINFO = 'DrainpipeMonitoringInfo';
 const SERVICE_LISTRAINFALLSERVICE = 'ListRainfallService';
+const COMMON_OPENAPI_URL = `http://openAPI.seoul.go.kr:8088/${process.env.AUTHORIZATION_KEY}/json`;
 
 module.exports = {
   SERVICE_DRAINPIPEMONITORINGINFO,
   SERVICE_LISTRAINFALLSERVICE,
+  COMMON_OPENAPI_URL,
 };
