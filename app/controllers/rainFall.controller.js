@@ -4,7 +4,7 @@ const { getIndices } = require('../utils');
 /**
  * 작성자 : 김지유
  */
-const getRainfall = async (req, res) => {
+const getRainfall = async (req, res, next) => {
   try {
     const {
       params: { limit, guName },
@@ -20,7 +20,7 @@ const getRainfall = async (req, res) => {
     res.status(200).json(rainfall);
   } catch (err) {
     res.status(400);
-    console.err(err);
+    next(err);
   }
 };
 
