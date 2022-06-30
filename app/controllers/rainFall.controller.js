@@ -11,13 +11,13 @@ const getRainfall = async (req, res) => {
     } = req;
 
     const [startIndex, endIndex] = getIndices(limit);
-    const rainFall = await rainfallService.getRainFall(
+    const rainfall = await rainfallService.getRainfall(
       startIndex,
       endIndex,
       guName || '',
     );
 
-    res.status(200).json(rainFall);
+    res.status(200).json(rainfall);
   } catch (err) {
     res.status(400);
     console.err(err);

@@ -2,7 +2,7 @@ const { createCommonOpenApiUrl } = require('../utils');
 const { SERVICE_LISTRAINFALLSERVICE, gus } = require('../constants');
 const { default: axios } = require('axios');
 
-const rainFallInstance = axios.create({
+const rainfallInstance = axios.create({
   baseURL: createCommonOpenApiUrl(SERVICE_LISTRAINFALLSERVICE),
 });
 
@@ -48,7 +48,7 @@ const getRainfall = async (startIndex = 1, endIndex = 10, guName = '') => {
       }
     }
 
-    const { data } = await rainFallInstance.get(
+    const { data } = await rainfallInstance.get(
       `${startIndex}/${endIndex}/${guName}`,
     );
 
