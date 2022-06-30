@@ -5,7 +5,7 @@
 ## 사용법
 레퍼지토리를 clone한 뒤, `npm install`을 하고 `.env`파일을 다음과 같이 작성한다.
 ```
-AUTHORIZATION_KEY=서울열린데이터광장에서 인증기를 받아 사용
+AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
 ```
 ## 요구사항 분석
 * 데이터 JSON 전달
