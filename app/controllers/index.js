@@ -1,5 +1,5 @@
-const rainFallController = require('./rainFall.controller');
+const rainfallController = require('./rainfall.controller');
 
 module.exports = {
-  rainFallController,
+  rainfallController,
 };

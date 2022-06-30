@@ -1,23 +1,23 @@
-const { rainFallService } = require('../services');
+const { rainfallService } = require('../services');
 const { getIndices } = require('../utils');
 
 /**
  * 작성자 : 김지유
  */
-const getRainFall = async (req, res) => {
+const getRainfall = async (req, res) => {
   try {
     const {
       params: { limit, guName },
     } = req;
 
     const [startIndex, endIndex] = getIndices(limit);
-    const rainFall = await rainFallService.getRainFall(
+    const rainfall = await rainfallService.getRainfall(
       startIndex,
       endIndex,
       guName || '',
     );
 
-    res.status(200).json(rainFall);
+    res.status(200).json(rainfall);
   } catch (err) {
     res.status(400);
     console.err(err);
@@ -25,5 +25,5 @@ const getRainFall = async (req, res) => {
 };
 
 module.exports = {
-  getRainFall,
+  getRainfall,
 };

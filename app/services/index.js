@@ -1,5 +1,5 @@
-const rainFallService = require('./rainFall.service');
+const rainfallService = require('./rainfall.service');
 
 module.exports = {
-  rainFallService,
+  rainfallService,
 };
