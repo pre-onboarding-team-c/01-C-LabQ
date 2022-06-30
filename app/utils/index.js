@@ -66,9 +66,31 @@ const isTypeXml = data => {
   return result;
 };
 
+/**
+ * 작성자 : 김지유
+ * YYYYMMDDhhmm 형식의 숫자로 이루어진 12자리 문자열의 시간 계산을 도와주는 함수이다.
+ * @param {string} time YYYYMMDDhhmm 형식의 숫자로 이루어진 12자리 문자열
+ * @param {number} calc 더할 시간(단위 : 분), 빼고 싶다면 음수를 입력하면 된다.
+ * @returns {string} YYYYMMDDhhmm 형식의 숫자로 이루어진 12자리 문자열
+ */
+const calculateTime = (time, calc) => {
+  const dateTime = new Date(time.slice(0, 4), time.slice(4, 6) - 1, time.slice(6, 8), time.slice(8, 10), time.slice(10));
+
+  dateTime.setMinutes(dateTime.getMinutes() + calc);
+
+  const year = String(dateTime.getFullYear());
+  const month = String(dateTime.getMonth() + 1);
+  const date = String(dateTime.getDate());
+  const hours = String(dateTime.getHours());
+  const minutes = String(dateTime.getMinutes());
+
+  return year.padStart(4, 0) + month.padStart(2, 0) + date.padStart(2, 0) + hours.padStart(2, 0) + minutes.padStart(2, 0);
+};
+
 module.exports = {
   createCommonOpenApiUrl,
   getIndices,
   drainpipeAmounts,
   isTypeXml,
+  calculateTime,
 };
