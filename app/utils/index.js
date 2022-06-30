@@ -21,6 +21,10 @@ const getIndices = (limit = 1, option = 1) => {
   return [startIndex, endIndex];
 };
 
+/**
+ * 작성자 : 김지유
+ * 각 구분코드 별 하수관로 갯수 목록입니다.
+ */
 const drainpipeAmounts = {
   '01': 4,
   '02': 5,
@@ -49,8 +53,22 @@ const drainpipeAmounts = {
   25: 6,
 };
 
+/**
+ * 작성자 : 김영우
+ * TYPE이 XML인지 파악
+ * @param {Object | string} data - Open API로 받은 데이터
+ * @returns {boolean}
+ */
+const isTypeXml = data => {
+  const regex = /<([^>]+)>/gi;
+  const result = regex.test(data);
+
+  return result;
+};
+
 module.exports = {
   createCommonOpenApiUrl,
   getIndices,
   drainpipeAmounts,
+  isTypeXml,
 };

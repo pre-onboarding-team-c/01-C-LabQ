@@ -1,5 +1,5 @@
 const { default: axios } = require('axios');
-const { createCommonOpenApiUrl, getIndices } = require('../utils');
+const { createCommonOpenApiUrl, isTypeXml, getIndices } = require('../utils');
 const { SERVICE_LISTRAINFALLSERVICE, gus } = require('../constants');
 
 const rainfallInstance = axios.create({
@@ -43,8 +43,13 @@ const getRainfall = async (limit = 1, guName = '') => {
 
     const { data } = await rainfallInstance.get(`${startIndex}/${endIndex}/${guName}`);
 
+    if (isTypeXml(data)) {
+      throw new Error('받은 데이터가 XML이 아닌 JSON 이여야 합니다(요청 값을 확인해주세요)');
+    }
+
     return data;
   } catch (err) {
+    console.error(err);
     throw err;
   }
 };
