@@ -1,5 +1,8 @@
 const { combinationService } = require('../services');
 
+/**
+ * 작성자 : 김지유
+ */
 const getCombinedData = async (req, res) => {
   const {
     query: { limit, gubn, meaYmd, meaYmd2 },
