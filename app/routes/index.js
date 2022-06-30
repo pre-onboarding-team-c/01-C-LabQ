@@ -1,7 +1,9 @@
-const router = require('express').Router();
+const drainPipe = require('./drainpipe');
+const rainFall = require('./rainfall');
+const combination = require('./combination');
 
-router.get('/', (req, res, next) => {
-  res.send('OK');
-});
-
-module.exports = router;
+module.exports = {
+  drainPipe,
+  rainFall,
+  combination,
+};

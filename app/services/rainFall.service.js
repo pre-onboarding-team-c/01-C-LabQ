@@ -1,6 +1,6 @@
+const { default: axios } = require('axios');
 const { createCommonOpenApiUrl } = require('../utils');
 const { SERVICE_LISTRAINFALLSERVICE, gus } = require('../constants');
-const { default: axios } = require('axios');
 
 const rainFallInstance = axios.create({
   baseURL: createCommonOpenApiUrl(SERVICE_LISTRAINFALLSERVICE),
