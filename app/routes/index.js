@@ -1,9 +1,11 @@
-const drainPipe = require('./drainpipe');
+const router = require('express').Router();
+
+const drainPipeRouter = require('./drainpipe');
 const rainFall = require('./rainfall');
 const combination = require('./combination');
 
-module.exports = {
-  drainPipe,
-  rainFall,
-  combination,
-};
+router.use('/drainpipes', drainPipeRouter);
+router.use('/rainfalls', rainFall);
+router.use('/combinations', combination);
+
+module.exports = router;
