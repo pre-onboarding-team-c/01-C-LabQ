@@ -7,6 +7,19 @@ const { COMMON_OPENAPI_URL } = require('../constants');
  */
 const createCommonOpenApiUrl = service => `${COMMON_OPENAPI_URL}/${service}`;
 
+/**
+ * limit에 해당하는 startIndex 와 endIndex 를 반환합니다.
+ * @param {number} limit 페이지를 의미합니다.
+ * @returns {Array<number>} [startIndex, endIndex] 형식의 배열을 반환합니다.
+ */
+const getIndices = (limit = 1) => {
+  const startIndex = ((limit || 1) - 1) * 10 + 1;
+  const endIndex = startIndex + 9;
+
+  return [startIndex, endIndex];
+};
+
 module.exports = {
   createCommonOpenApiUrl,
+  getIndices,
 };

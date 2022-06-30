@@ -1,4 +1,5 @@
 const { rainFallService } = require('../services');
+const { getIndices } = require('../utils');
 
 const getRainFall = async (req, res) => {
   try {
@@ -6,8 +7,7 @@ const getRainFall = async (req, res) => {
       params: { limit, guName },
     } = req;
 
-    const startIndex = ((limit || 1) - 1) * 10 + 1;
-    const endIndex = startIndex + 9;
+    const [startIndex, endIndex] = getIndices(limit);
     const rainFall = await rainFallService.getRainFall(
       startIndex,
       endIndex,
