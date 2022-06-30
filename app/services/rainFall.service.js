@@ -7,6 +7,7 @@ const rainFallInstance = axios.create({
 });
 
 /**
+ * 작성자 : 김지유
  * 서울시 강우량 정보를 받아옵니다.
  * @param {number} startIndex - 페이징 시작 번호, 필수로 입력해야하며 0보다 커야합니다. default 는 1입니다.
  * @param {number} endIndex - 페이징 끝 번호, 필수로 입력해야하며 startIndex 보다 크고, endIndex - startIndex < 1000 이여야 합니다. default 는 10입니다.

@@ -1,3 +1,6 @@
+/**
+ * 작성자 : 김지유
+ */
 const SERVICE_DRAINPIPEMONITORINGINFO = 'DrainpipeMonitoringInfo';
 const SERVICE_LISTRAINFALLSERVICE = 'ListRainfallService';
 const COMMON_OPENAPI_URL = `http://openAPI.seoul.go.kr:8088/${process.env.AUTHORIZATION_KEY}/json`;
