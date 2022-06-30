@@ -14,7 +14,7 @@ const rainFallInstance = axios.create({
  * @param {string} guName - XX구 형태의 문자열입니다. 선택사항입니다. 입력하면 그 구의 정보만 받아오고, 입력하지 않으면 서울시 전체의 정보를 받아옵니다.
  * @return https://www.notion.so/9ea1ae127cf94323b78ad19614a694cb#f54d4b862ecf4677adf734ba69de056e 를 참고해주세요.
  */
-const getRainFall = async (startIndex = 1, endIndex = 10, guName = '') => {
+const getRainfall = async (startIndex = 1, endIndex = 10, guName = '') => {
   try {
     if (startIndex <= 0) {
       throw new Error(
@@ -59,5 +59,5 @@ const getRainFall = async (startIndex = 1, endIndex = 10, guName = '') => {
 };
 
 module.exports = {
-  getRainFall,
+  getRainfall,
 };
