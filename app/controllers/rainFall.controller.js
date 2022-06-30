@@ -1,6 +1,9 @@
 const { rainFallService } = require('../services');
 const { getIndices } = require('../utils');
 
+/**
+ * 작성자 : 김지유
+ */
 const getRainFall = async (req, res) => {
   try {
     const {
