@@ -21,7 +21,21 @@ const getIndices = (limit = 1) => {
   return [startIndex, endIndex];
 };
 
+/**
+ * 작성자 : 김영우
+ * TYPE이 XML인지 파악
+ * @param {Object|string} data - Open API로 받은 데이터
+ * @returns {boolean}
+ */
+const isTypeXml = data => {
+  const regex = /<([^>]+)>/gi;
+  const result = regex.test(data);
+
+  return result;
+};
+
 module.exports = {
   createCommonOpenApiUrl,
   getIndices,
+  isTypeXml,
 };
