@@ -33,10 +33,10 @@ module.exports = {
       `http://openapi.seoul.go.kr:8088/${process.env.AUTHORIZATION_KEY}/json/DrainpipeMonitoringInfo/${startIndex}/${endIndex}/${gubn}/${meaYmd}/${meaYmd2}`,
     );
 
+    if (isTypeXml(data)) {
+      throw new Error('받은 데이터가 XML이 아닌 JSON 이여야 합니다(요청 값을 확인해주세요)');
+    }
+
     return data;
   },
 };
-
-// 파이프 8개 1페이지 1, 80
-// 파이프 8개 2페이지 81, 160
-// 파이프 8개 3페이지 161, 240
