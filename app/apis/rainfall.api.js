@@ -1,3 +1,7 @@
+/**
+ * 작성자 : 김지유
+ * 순수 Open Api 를 분리해놨습니다.
+ */
 const { default: axios } = require('axios');
 const { createCommonOpenApiUrl } = require('../utils');
 const { SERVICE_LISTRAINFALLSERVICE } = require('../constants');
