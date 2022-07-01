@@ -28,7 +28,7 @@ AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
 * OpenAPI 문제로 xml 형식 문자열 파악하는 함수 구현
   - json 형식인데 xml 형식으로 넘어오는 경우가 있음
 ## API Documentation
-https://documenter.getpostman.com/view/21440012/UzJESK7v
+[API 링크](https://documenter.getpostman.com/view/21440012/UzJESK7v)
 
 ## Response 출력 값
 v1. 지정한 구의 최근 1000개 강우량 데이터를 기준, 관련 최근 1000개 하수관로 수위 데이터 결합
