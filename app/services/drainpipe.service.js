@@ -1,5 +1,6 @@
-const { drainpipeAmounts, getIndices, numberToDateString } = require('../utils');
+const { getIndices, numberToDateString, isTypeXml } = require('../utils');
 const { drainpipeOpenApi } = require('../openApis');
+const { drainpipeInfos } = require('../constants');
 
 module.exports = {
   /**
@@ -27,7 +28,7 @@ module.exports = {
    * @param {number} meaYmd2 - 이 날짜를 기점으로 측정을 마칩니다. ex(2022063012)
    */
   getDrainpipe: async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
-    const [startIndex, endIndex] = getIndices(limit, drainpipeAmounts[gubn]);
+    const [startIndex, endIndex] = getIndices(limit, drainpipeInfos[gubn].amount);
 
     if (!meaYmd) {
       const currentTime = new Date();

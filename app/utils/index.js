@@ -22,38 +22,6 @@ const getIndices = (limit = 1, option = 1) => {
 };
 
 /**
- * 작성자 : 김지유
- * 각 구분코드 별 하수관로 갯수 목록입니다.
- */
-const drainpipeAmounts = {
-  '01': 4,
-  '02': 5,
-  '03': 9,
-  '04': 11,
-  '05': 12,
-  '06': 14,
-  '07': 8,
-  '08': 5,
-  '09': 2,
-  10: 9,
-  11: 11,
-  12: 8,
-  13: 11,
-  14: 20,
-  15: 12,
-  16: 14,
-  17: 13,
-  18: 8,
-  19: 12,
-  20: 26,
-  21: 7,
-  22: 14,
-  23: 21,
-  24: 2,
-  25: 6,
-};
-
-/**
  * 작성자 : 김영우
  * TYPE이 XML인지 파악
  * @param {Object | string} data - Open API로 받은 데이터
@@ -88,12 +56,13 @@ const calculateTime = (time, calc) => {
 };
 
 const numberToDateString = (number, isYear = false) => String(number).padStart(isYear ? 4 : 2, 0);
+const dateToString = dateString => dateString.replace(/[^0-9]/g, '').slice(0, 12);
 
 module.exports = {
   createCommonOpenApiUrl,
   getIndices,
-  drainpipeAmounts,
   isTypeXml,
   calculateTime,
   numberToDateString,
+  dateToString,
 };

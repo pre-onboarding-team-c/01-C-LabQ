@@ -37,7 +37,7 @@ const getRainfall = async (limit = 1, guName = '') => {
       }
     }
 
-    const { data } = await rainfallOpenApi.getRainfall(startIndex, endIndex, guName);
+    const { data } = await rainfallOpenApi.getRainfall(startIndex, endIndex, guName || '');
 
     if (isTypeXml(data)) {
       throw new Error('받은 데이터가 XML이 아닌 JSON 이여야 합니다(요청 값을 확인해주세요)');
