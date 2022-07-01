@@ -47,5 +47,5 @@ const {
 // };
 
 module.exports = {
-  getCombinedData,
+  // getCombinedData,
 };
