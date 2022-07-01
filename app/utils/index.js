@@ -55,7 +55,21 @@ const calculateTime = (time, calc) => {
   return numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
 };
 
-const numberToDateString = (number, isYear = false) => String(number).padStart(isYear ? 4 : 2, 0);
+/**
+ * 작성자 : 김지유
+ * 연도면 네자리, 그 이외는 두자리가 되도록 앞에 0을 채워 넣는 함수이다.
+ * @param {number}
+ * @param {boolean} isYear - num 에 입력한 숫자가 연도인지 아닌지. 기본값은 false
+ * @returns {string} 네자리 혹은 두자리의 문자열
+ */
+const numberToDateString = (num, isYear = false) => String(num).padStart(isYear ? 4 : 2, 0);
+
+/**
+ * 작성자 : 김지유
+ * Open Api 에서 시간을 나타내는 문자열을 YYYYMMDDhhmm 형식의 12자리 문자열로 반환하는 함수.
+ * @param {string} dateString - Open Api 에서 시간을 나타내는 문자열
+ * @returns {string} YYYYMMDDhhmm 형식의 12자리 문자열
+ */
 const dateToString = dateString => dateString.replace(/[^0-9]/g, '').slice(0, 12);
 
 module.exports = {
