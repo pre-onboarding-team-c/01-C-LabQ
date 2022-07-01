@@ -78,14 +78,16 @@ const calculateTime = (time, calc) => {
 
   dateTime.setMinutes(dateTime.getMinutes() + calc);
 
-  const year = String(dateTime.getFullYear());
-  const month = String(dateTime.getMonth() + 1);
-  const date = String(dateTime.getDate());
-  const hours = String(dateTime.getHours());
-  const minutes = String(dateTime.getMinutes());
+  const year = dateTime.getFullYear();
+  const month = dateTime.getMonth() + 1;
+  const date = dateTime.getDate();
+  const hours = dateTime.getHours();
+  const minutes = dateTime.getMinutes();
 
-  return year.padStart(4, 0) + month.padStart(2, 0) + date.padStart(2, 0) + hours.padStart(2, 0) + minutes.padStart(2, 0);
+  return numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
 };
+
+const numberToDateString = (number, isYear = false) => String(number).padStart(isYear ? 4 : 2, 0);
 
 module.exports = {
   createCommonOpenApiUrl,
@@ -93,4 +95,5 @@ module.exports = {
   drainpipeAmounts,
   isTypeXml,
   calculateTime,
+  numberToDateString,
 };
