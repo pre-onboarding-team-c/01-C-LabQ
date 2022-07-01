@@ -51,11 +51,11 @@ AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
 ## Response 출력 값
 v1. 지정한 구의 최근 1000개 강우량 데이터를 기준, 관련 최근 1000개 하수관로 수위 데이터 결합
 
-YMD: 강우량 측정 시각(10분우량)
-drainpipe: 해당 시각 10분 동안의 하수관로 수위 데이터 배열
-drainpipe[n].YMD: 하수관로 수위 측정 시각
-drainpipe[n].MEA_WALs: 하수관로 수위 배열
-drainpipe[n].SIG_STAs: 통신상태 배열
+YMD : 강우량 측정 시각(10분우량)  
+drainpipe : 해당 시각 10분 동안의 하수관로 수위 데이터 배열  
+drainpipe[n].YMD : 하수관로 수위 측정 시각  
+drainpipe[n].MEA_WALs : 하수관로 수위 배열  
+drainpipe[n].SIG_STAs : 통신상태 배열  
 
 하수관로 고유번호인 IDN(ex: 01-0001, 01-0002, 01-0003, ...)의 뒷 4자리가
 MEA_WALs, SIG_STAs 의 인덱스가 된다. (ex: 01-0001의 수위 -> MEA_WALs[0], 01-0005의 통신상태 SIG_STAs[4])
