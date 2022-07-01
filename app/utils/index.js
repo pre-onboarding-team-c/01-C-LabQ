@@ -34,6 +34,9 @@ const isTypeXml = data => {
   return result;
 };
 
+const numberToDateString = (number, isYear = false) => String(number).padStart(isYear ? 4 : 2, 0);
+const dateToString = dateString => dateString.replace(/[^0-9]/g, '').slice(0, 12);
+
 /**
  * 작성자 : 김지유
  * YYYYMMDDhhmm 형식의 숫자로 이루어진 12자리 문자열의 시간 계산을 도와주는 함수이다.

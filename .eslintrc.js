@@ -3,14 +3,9 @@ module.exports = {
     browser: true,
     commonjs: true,
     es2021: true,
+    jest: true,
   },
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'airbnb-base',
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['airbnb', 'airbnb/hooks', 'airbnb-base', 'eslint:recommended', 'plugin:prettier/recommended'],
   rules: {
     'prettier/prettier': [
       'error',
