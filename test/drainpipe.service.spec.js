@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const { drainpipeApi } = require('../app/apis');
+const { drainpipeOpenApi } = require('../app/openApis');
 const drainpipeService = require('../app/services/drainpipe.service');
 
 /**
@@ -53,7 +53,7 @@ describe('하수관로 Open API 호출', () => {
 
   describe('Open API 데이터 요청 성공', () => {
     test('getDrainpipe 함수', async () => {
-      const result = await drainpipeApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
+      const result = await drainpipeOpenApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
 
       expect(result.data).toHaveProperty('DrainpipeMonitoringInfo');
       expect(result.data).toEqual(data);
@@ -63,7 +63,7 @@ describe('하수관로 Open API 호출', () => {
   describe('Open API 데이터 요청 실패', () => {
     test('getDrainpipe 함수', async () => {
       const gubn1 = '';
-      const result = await drainpipeApi.getDrainpipe(startIndex, endIndex, gubn1, meaYmd, meaYmd2);
+      const result = await drainpipeOpenApi.getDrainpipe(startIndex, endIndex, gubn1, meaYmd, meaYmd2);
 
       expect(result.data).not.toHaveProperty('DrainpipeMonitoringInfo');
     });
