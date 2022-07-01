@@ -32,19 +32,19 @@ AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
     <td>GET</td>
     <td>/drainpipes?gubn={01}&limit={1}&meaYmd={2022063009}&meaYmd2={2022060310}</td>
     <td>하수관로 수위 조회</td>
-    <td>http://localhost:8081/drainpipes?gubn=01&limit=1&meaYmd={날짜시간}&meaYmd2={날짜시간}</td>
+    <td>http://localhost:8081/api/drainpipes?gubn=01&limit=1&meaYmd={날짜시간}&meaYmd2={날짜시간}</td>
 </tr>
 <tr>
     <td>GET</td>
     <td>/rainfalls?limit={1}&guName={강남구}</td>
     <td>강우량 조회</td>
-    <td>http://localhost:8081/rainfalls?limit={1}&guName={강남구}</td>
+    <td>http://localhost:8081/api/rainfalls?limit={1}&guName={강남구}</td>
 </tr>
 <tr>
     <td>GET</td>
     <td>/combinations</td>
     <td>하수관로 수위, 강우량 데이터 결합 조회</td>
-    <td>http://localhost:8081/combinations</td>
+    <td>http://localhost:8081/api/combinations</td>
 </tr>
 </table>
 
