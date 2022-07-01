@@ -1,5 +1,5 @@
 const { drainpipeAmounts, getIndices, numberToDateString } = require('../utils');
-const { drainpipeApi } = require('../apis');
+const { drainpipeOpenApi } = require('../openApis');
 
 module.exports = {
   /**
@@ -55,7 +55,7 @@ module.exports = {
       meaYmd2 = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours);
     }
 
-    const { data } = await drainpipeApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
+    const { data } = await drainpipeOpenApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
 
     if (isTypeXml(data)) {
       throw new Error('받은 데이터가 XML이 아닌 JSON 이여야 합니다(요청 값을 확인해주세요)');
