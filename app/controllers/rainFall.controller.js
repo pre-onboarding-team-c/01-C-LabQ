@@ -1,5 +1,4 @@
 const { rainfallService } = require('../services');
-const { getIndices } = require('../utils');
 
 /**
  * 작성자 : 김지유
@@ -7,15 +6,10 @@ const { getIndices } = require('../utils');
 const getRainfall = async (req, res, next) => {
   try {
     const {
-      params: { limit, guName },
+      query: { limit, guName },
     } = req;
 
-    const [startIndex, endIndex] = getIndices(limit);
-    const rainfall = await rainfallService.getRainfall(
-      startIndex,
-      endIndex,
-      guName || '',
-    );
+    const rainfall = await rainfallService.getRainfall(limit || 1, guName || '');
 
     res.status(200).json(rainfall);
   } catch (err) {
