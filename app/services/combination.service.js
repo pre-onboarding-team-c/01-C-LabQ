@@ -10,72 +10,100 @@ const { drainpipeInfos } = require('../constants');
  * 현재는 gubn으로 지정한 구의 최근 강우량 1000개의 데이터를 기준으로 관련 하수관로 수위 데이터와 결합짓는 것까지만 구현되었습니다. (v1)
  * @param {number} limit - 페이지를 의미합니다.
  * @param {string} gubn - NN 형태의 구분코드 문자열입니다.
- * @param {string} meaYmd - 데이터를 받아올 시작 시간 입니다. YYYYMMDDhhmm 형태의 문자열입니다.
- * @param {string} meaYmd2 - 데이터를 받아올 끝 시간 입니다. YYYYMMDDhhmm 형태의 문자열입니다.
  * @returns
  */
-const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
-  const guName = `${drainpipeInfos[gubn].guName}구`;
-  let startDate;
-  let endDate;
-
-  // startDate endDate 설정
-  if (!!meaYmd && !!meaYmd2) {
-    startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
-    endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
-  } else if (!meaYmd && !meaYmd2) {
-    startDate = new Date();
-    endDate = new Date();
-    startDate.setDate(startDate.getDate() - 7);
-
-    const startYear = startDate.getFullYear();
-    const startMonth = startDate.getMonth() + 1;
-    const startDay = startDate.getDate();
-    const startHours = startDate.getHours();
-    const startMinutes = startDate.getMinutes();
-    const endYear = endDate.getFullYear();
-    const endMonth = endDate.getMonth() + 1;
-    const endDay = endDate.getDate();
-    const endHours = endDate.getHours();
-    const endMinutes = endDate.getMinutes();
-
-    meaYmd =
-      numberToDateString(startYear, true) +
-      numberToDateString(startMonth) +
-      numberToDateString(startDay) +
-      numberToDateString(startHours) +
-      numberToDateString(startMinutes);
-    meaYmd2 =
-      numberToDateString(endYear, true) +
-      numberToDateString(endMonth) +
-      numberToDateString(endDay) +
-      numberToDateString(endHours) +
-      numberToDateString(endMinutes);
-  } else if (!meaYmd) {
-    startDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
-    endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
-    startDate.setDate(startDate.getDate() - 7);
-
-    const year = startDate.getFullYear();
-    const month = startDate.getMonth() + 1;
-    const date = startDate.getDate();
-    const hours = startDate.getHours();
-    const minutes = startDate.getMinutes();
-
-    meaYmd = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
-  } else {
-    startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
-    endDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
-    endDate.setDate(endDate.getDate() + 7);
-
-    const year = endDate.getFullYear();
-    const month = endDate.getMonth() + 1;
-    const date = endDate.getDate();
-    const hours = endDate.getHours();
-    const minutes = endDate.getMinutes();
-
-    meaYmd2 = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
+const getCombinedData = async (limit = 1, gubn = '01') => {
+  if (gubn.length === 1) {
+    gubn = gubn.padStart(2, '0');
   }
+  const guName = `${drainpipeInfos[gubn].guName}구`;
+  const startDate = new Date();
+  const endDate = new Date();
+  startDate.setDate(startDate.getDate() - 7);
+
+  const startYear = startDate.getFullYear();
+  const startMonth = startDate.getMonth() + 1;
+  const startDay = startDate.getDate();
+  const startHours = startDate.getHours();
+  const startMinutes = startDate.getMinutes();
+  const endYear = endDate.getFullYear();
+  const endMonth = endDate.getMonth() + 1;
+  const endDay = endDate.getDate();
+  const endHours = endDate.getHours();
+  const endMinutes = endDate.getMinutes();
+
+  const meaYmd =
+    numberToDateString(startYear, true) +
+    numberToDateString(startMonth) +
+    numberToDateString(startDay) +
+    numberToDateString(startHours) +
+    numberToDateString(startMinutes);
+  const meaYmd2 =
+    numberToDateString(endYear, true) +
+    numberToDateString(endMonth) +
+    numberToDateString(endDay) +
+    numberToDateString(endHours) +
+    numberToDateString(endMinutes);
+  // let startDate;
+  // let endDate;
+
+  // // startDate endDate 설정
+  // if (!!meaYmd && !!meaYmd2) {
+  //   startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
+  //   endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
+  // } else if (!meaYmd && !meaYmd2) {
+  //   startDate = new Date();
+  //   endDate = new Date();
+  //   startDate.setDate(startDate.getDate() - 7);
+
+  //   const startYear = startDate.getFullYear();
+  //   const startMonth = startDate.getMonth() + 1;
+  //   const startDay = startDate.getDate();
+  //   const startHours = startDate.getHours();
+  //   const startMinutes = startDate.getMinutes();
+  //   const endYear = endDate.getFullYear();
+  //   const endMonth = endDate.getMonth() + 1;
+  //   const endDay = endDate.getDate();
+  //   const endHours = endDate.getHours();
+  //   const endMinutes = endDate.getMinutes();
+
+  //   meaYmd =
+  //     numberToDateString(startYear, true) +
+  //     numberToDateString(startMonth) +
+  //     numberToDateString(startDay) +
+  //     numberToDateString(startHours) +
+  //     numberToDateString(startMinutes);
+  //   meaYmd2 =
+  //     numberToDateString(endYear, true) +
+  //     numberToDateString(endMonth) +
+  //     numberToDateString(endDay) +
+  //     numberToDateString(endHours) +
+  //     numberToDateString(endMinutes);
+  // } else if (!meaYmd) {
+  //   startDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
+  //   endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
+  //   startDate.setDate(startDate.getDate() - 7);
+
+  //   const year = startDate.getFullYear();
+  //   const month = startDate.getMonth() + 1;
+  //   const date = startDate.getDate();
+  //   const hours = startDate.getHours();
+  //   const minutes = startDate.getMinutes();
+
+  //   meaYmd = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
+  // } else {
+  //   startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
+  //   endDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
+  //   endDate.setDate(endDate.getDate() + 7);
+
+  //   const year = endDate.getFullYear();
+  //   const month = endDate.getMonth() + 1;
+  //   const date = endDate.getDate();
+  //   const hours = endDate.getHours();
+  //   const minutes = endDate.getMinutes();
+
+  //   meaYmd2 = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
+  // }
 
   const { data: firstRainfallData } = await getRainfall(1, 1000, guName);
   const { data } = await getDrainpipe(1, 1000, gubn, meaYmd.slice(0, 10), meaYmd2.slice(0, 10));
@@ -191,5 +219,5 @@ const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
 };
 
 module.exports = {
-  // getCombinedData,
+  getCombinedData,
 };

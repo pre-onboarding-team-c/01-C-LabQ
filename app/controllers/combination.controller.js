@@ -5,9 +5,9 @@ const { combinationService } = require('../services');
  */
 const getCombinedData = async (req, res) => {
   const {
-    query: { limit, gubn, meaYmd, meaYmd2 },
+    query: { limit, gubn },
   } = req;
-  const combinedData = await combinationService.getCombinedData(limit || 1, gubn || '01', meaYmd, meaYmd2);
+  const combinedData = await combinationService.getCombinedData(limit || 1, gubn || '01');
 
   res.status(200).json(combinedData);
 };
