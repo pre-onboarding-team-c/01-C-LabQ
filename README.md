@@ -1,11 +1,11 @@
 # (주)랩큐
-## Api Documentation
-https://documenter.getpostman.com/view/21440012/UzJESK7v
 ## 환경
 ![node](https://img.shields.io/badge/node-v16.15.1-3776AB?&style=plastic&logo=JavaScript&logoColor=white?label=healthinesses)
 ![npm](https://img.shields.io/badge/npm-v8.13.1-7986cb?&style=plastic&logo=npm&logoColor=white?label=healthinesses)
+
 ## 사용법
 레퍼지토리를 clone한 뒤, `npm install`을 하고 `.env`파일을 다음과 같이 작성한다.
+
 ```
 AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
 ```
@@ -27,30 +27,8 @@ AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
   - GET /rainfalls?limit=1&guName=강남구
 * OpenAPI 문제로 xml 형식 문자열 파악하는 함수 구현
   - json 형식인데 xml 형식으로 넘어오는 경우가 있음
-## API
-<table>
-<tr>
-    <th>Method</th><th>Endpoint</th><th>기 능 설 명</th><th>URL</th>
-</tr>
-<tr>
-    <td>GET</td>
-    <td>/drainpipes?gubn={01}&limit={1}&meaYmd={2022063009}&meaYmd2={2022060310}</td>
-    <td>하수관로 수위 조회</td>
-    <td>http://localhost:8081/api/drainpipes?gubn=01&limit=1&meaYmd={날짜시간}&meaYmd2={날짜시간}</td>
-</tr>
-<tr>
-    <td>GET</td>
-    <td>/rainfalls?limit={1}&guName={강남구}</td>
-    <td>강우량 조회</td>
-    <td>http://localhost:8081/api/rainfalls?limit={1}&guName={강남구}</td>
-</tr>
-<tr>
-    <td>GET</td>
-    <td>/combinations</td>
-    <td>하수관로 수위, 강우량 데이터 결합 조회</td>
-    <td>http://localhost:8081/api/combinations</td>
-</tr>
-</table>
+## AOI Documentation
+https://documenter.getpostman.com/view/21440012/UzJESK7v
 
 ## Response 출력 값
 v1. 지정한 구의 최근 1000개 강우량 데이터를 기준, 관련 최근 1000개 하수관로 수위 데이터 결합
