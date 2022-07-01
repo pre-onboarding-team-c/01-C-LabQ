@@ -1,5 +1,5 @@
-const { default: axios } = require('axios');
-const { drainpipeAmounts, getIndices } = require('../utils');
+const { drainpipeAmounts, getIndices, numberToDateString } = require('../utils');
+const { drainpipeApi } = require('../apis');
 
 module.exports = {
   /**
@@ -29,9 +29,33 @@ module.exports = {
   getDrainpipe: async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
     const [startIndex, endIndex] = getIndices(limit, drainpipeAmounts[gubn]);
 
-    const { data } = await axios.get(
-      `http://openapi.seoul.go.kr:8088/${process.env.AUTHORIZATION_KEY}/json/DrainpipeMonitoringInfo/${startIndex}/${endIndex}/${gubn}/${meaYmd}/${meaYmd2}`,
-    );
+    if (!meaYmd) {
+      const currentTime = new Date();
+
+      currentTime.setHours(currentTime.getHours() - 1);
+
+      const year = currentTime.getFullYear();
+      const month = currentTime.getMonth() + 1;
+      const date = currentTime.getDate();
+      const hours = currentTime.getHours();
+
+      meaYmd = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours);
+    }
+
+    if (!meaYmd2) {
+      const endTime = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8));
+
+      endTime.setHours(endTime.getHours() + 1);
+
+      const year = endTime.getFullYear();
+      const month = endTime.getMonth() + 1;
+      const date = endTime.getDate();
+      const hours = endTime.getHours();
+
+      meaYmd2 = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours);
+    }
+
+    const { data } = await drainpipeApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
 
     if (isTypeXml(data)) {
       throw new Error('받은 데이터가 XML이 아닌 JSON 이여야 합니다(요청 값을 확인해주세요)');
