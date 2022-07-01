@@ -1,4 +1,6 @@
 # (주)랩큐
+## Api Documentation
+https://documenter.getpostman.com/view/21440012/UzJESK7v
 ## 환경
 ![node](https://img.shields.io/badge/node-v16.15.1-3776AB?&style=plastic&logo=JavaScript&logoColor=white?label=healthinesses)
 ![npm](https://img.shields.io/badge/npm-v8.13.1-7986cb?&style=plastic&logo=npm&logoColor=white?label=healthinesses)
@@ -7,6 +9,8 @@
 ```
 AUTHORIZATION_KEY=서울열린데이터광장에서 인증키를 받아 사용
 ```
+## 서비스 개요
+하수관로 수위, 강우량, 둘을 결합한 데이터, 총 세 가지 종류의 데이터를 한 페이지 당 10개씩 제공하는 가상의 클라이언트(웹) 에서 사용할 API.  
 ## 요구사항 분석
 * 데이터 JSON 전달
 * 기본 서울시 하수관로 수위 현황 데이터 수집
