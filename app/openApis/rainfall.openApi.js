@@ -11,7 +11,7 @@ const rainfallInstance = axios.create({
 });
 
 const getRainfall = async (startIndex, endIndex, guName) => {
-  const response = await rainfallInstance.get(`${startIndex}/${endIndex}/${encodeURIComponent(guName)}`);
+  const response = await rainfallInstance.get(`${startIndex}/${endIndex}${guName ? `/${encodeURIComponent(guName)}` : ''}`);
 
   return response;
 };

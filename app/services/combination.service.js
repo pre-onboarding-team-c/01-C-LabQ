@@ -5,18 +5,24 @@ const {
 const { dateToString, numberToDateString } = require('../utils');
 const { drainpipeInfos } = require('../constants');
 
+/**
+ * 작성자 : 김지유
+ * 현재는 gubn으로 지정한 구의 최근 강우량 1000개의 데이터를 기준으로 관련 하수관로 수위 데이터와 결합짓는 것까지만 구현되었습니다. (v1)
+ * @param {number} limit - 페이지를 의미합니다.
+ * @param {string} gubn - NN 형태의 구분코드 문자열입니다.
+ * @param {string} meaYmd - 데이터를 받아올 시작 시간 입니다. YYYYMMDDhhmm 형태의 문자열입니다.
+ * @param {string} meaYmd2 - 데이터를 받아올 끝 시간 입니다. YYYYMMDDhhmm 형태의 문자열입니다.
+ * @returns
+ */
 const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
-  const rainfallStartIndices = [];
-  const drainpipeStartIndices = [];
   const guName = `${drainpipeInfos[gubn].guName}구`;
-  let isRainfallEnough = false;
   let startDate;
   let endDate;
 
   // startDate endDate 설정
   if (!!meaYmd && !!meaYmd2) {
-    startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8));
-    endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8));
+    startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
+    endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
   } else if (!meaYmd && !meaYmd2) {
     startDate = new Date();
     endDate = new Date();
@@ -26,47 +32,59 @@ const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
     const startMonth = startDate.getMonth() + 1;
     const startDay = startDate.getDate();
     const startHours = startDate.getHours();
+    const startMinutes = startDate.getMinutes();
     const endYear = endDate.getFullYear();
     const endMonth = endDate.getMonth() + 1;
     const endDay = endDate.getDate();
     const endHours = endDate.getHours();
+    const endMinutes = endDate.getMinutes();
 
-    meaYmd = numberToDateString(startYear, true) + numberToDateString(startMonth) + numberToDateString(startDay) + numberToDateString(startHours);
-    meaYmd2 = numberToDateString(endYear, true) + numberToDateString(endMonth) + numberToDateString(endDay) + numberToDateString(endHours);
+    meaYmd =
+      numberToDateString(startYear, true) +
+      numberToDateString(startMonth) +
+      numberToDateString(startDay) +
+      numberToDateString(startHours) +
+      numberToDateString(startMinutes);
+    meaYmd2 =
+      numberToDateString(endYear, true) +
+      numberToDateString(endMonth) +
+      numberToDateString(endDay) +
+      numberToDateString(endHours) +
+      numberToDateString(endMinutes);
   } else if (!meaYmd) {
-    startDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8));
-    endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8));
+    startDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
+    endDate = new Date(meaYmd2.slice(0, 4), meaYmd2.slice(4, 6) - 1, meaYmd2.slice(6, 8), meaYmd2.slice(8, 10), meaYmd2.slice(10));
     startDate.setDate(startDate.getDate() - 7);
 
     const year = startDate.getFullYear();
     const month = startDate.getMonth() + 1;
     const date = startDate.getDate();
     const hours = startDate.getHours();
+    const minutes = startDate.getMinutes();
 
-    meaYmd = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours);
+    meaYmd = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
   } else {
-    startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8));
-    endDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8));
+    startDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
+    endDate = new Date(meaYmd.slice(0, 4), meaYmd.slice(4, 6) - 1, meaYmd.slice(6, 8), meaYmd.slice(8, 10), meaYmd.slice(10));
     endDate.setDate(endDate.getDate() + 7);
 
     const year = endDate.getFullYear();
     const month = endDate.getMonth() + 1;
     const date = endDate.getDate();
     const hours = endDate.getHours();
+    const minutes = endDate.getMinutes();
 
-    meaYmd2 = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours);
+    meaYmd2 = numberToDateString(year, true) + numberToDateString(month) + numberToDateString(date) + numberToDateString(hours) + numberToDateString(minutes);
   }
 
   const { data: firstRainfallData } = await getRainfall(1, 1000, guName);
-  const { data } = await getDrainpipe(1, 1000, gubn, meaYmd, meaYmd2);
-  const rainfallDataAmount = firstRainfallData?.ListRainfallService.list_total_count || 0;
+  const { data } = await getDrainpipe(1, 1000, gubn, meaYmd.slice(0, 10), meaYmd2.slice(0, 10));
   const drainpipeDataAmount = data?.DrainpipeMonitoringInfo.list_total_count || 0;
-  const { data: firstDrainpipeData } = await getDrainpipe(drainpipeDataAmount - 999, drainpipeDataAmount, gubn, meaYmd, meaYmd2);
+  const { data: firstDrainpipeData } = await getDrainpipe(drainpipeDataAmount - 999, drainpipeDataAmount, gubn, meaYmd.slice(0, 10), meaYmd2.slice(0, 10));
   const rainfallData = {};
   const drainpipeData = {};
   const combinedDataRow = [];
 
-  // rainfall start
   if (firstRainfallData.hasOwnProperty('ListRainfallService')) {
     const {
       ListRainfallService: { row: firstRainfallRow },
@@ -74,55 +92,15 @@ const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
 
     for ({ GU_CODE, GU_NAME, RECEIVE_TIME, ...rest } of firstRainfallRow) {
       const time = dateToString(RECEIVE_TIME);
-      const date = new Date(time.slice(0, 4), time.slice(4, 6) - 1, time.slice(6, 8), time.slice(8, 10), time.slice(10));
 
-      if (startDate <= date) {
-        if (endDate < date) {
-          isRainfallEnough = true;
-          break;
-        }
-
-        if (!rainfallData.hasOwnProperty(time)) {
-          rainfallData[time] = [];
-        }
-
-        rainfallData[time].push(rest);
+      if (!rainfallData.hasOwnProperty(time)) {
+        rainfallData[time] = [];
       }
+
+      rainfallData[time].push(rest);
     }
   }
 
-  if (false) {
-    for (let startIndex = 1001; startIndex <= rainfallDataAmount; startIndex += 1000) {
-      rainfallStartIndices.push(startIndex);
-    }
-
-    if (rainfallStartIndices.length > 0) {
-      await Promise.all(
-        rainfallStartIndices.map(async startIndex => {
-          const { data: restRainfallData } = await getRainfall(startIndex, startIndex + 999, guName);
-
-          if (restRainfallData.hasOwnProperty('ListRainfallService')) {
-            const {
-              ListRainfallService: { row: restRainfallRow },
-            } = restRainfallData;
-
-            for ({ GU_CODE, GU_NAME, RECEIVE_TIME, ...rest } of restRainfallRow) {
-              const time = dateToString(RECEIVE_TIME);
-
-              if (!rainfallData.hasOwnProperty(time)) {
-                rainfallData[time] = [rest];
-              } else if (!rainfallData[time].some(({ RAINGAUGE_CODE }) => RAINGAUGE_CODE === rest.RAINGAUGE_CODE)) {
-                rainfallData[time].push(rest);
-              }
-            }
-          }
-        }),
-      );
-    }
-  }
-  // rainfall end
-
-  // drainpipe start
   if (firstDrainpipeData.hasOwnProperty('DrainpipeMonitoringInfo')) {
     const {
       DrainpipeMonitoringInfo: { row: firstDrainpipeRow },
@@ -144,51 +122,15 @@ const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
     }
   }
 
-  if (false) {
-    for (let startIndex = 1001; startIndex <= drainpipeDataAmount; startIndex += 1000) {
-      drainpipeStartIndices.push(startIndex);
-    }
-
-    if (drainpipeStartIndices.length > 0) {
-      await Promise.all(
-        drainpipeStartIndices.map(async startIndex => {
-          const { data: restDrainpipeData } = await getDrainpipe(startIndex, startIndex + 999, gubn, meaYmd, meaYmd2);
-
-          if (restDrainpipeData.hasOwnProperty('DrainpipeMonitoringInfo')) {
-            const {
-              DrainpipeMonitoringInfo: { row: restDrainpipeRow },
-            } = restDrainpipeData;
-
-            restDrainpipeRow.forEach(({ IDN, MEA_YMD, MEA_WAL, SIG_STA }) => {
-              const time = dateToString(MEA_YMD);
-              const drainpipeIndex = Number(IDN.slice(3)) - 1;
-
-              if (!drainpipeData.hasOwnProperty(time)) {
-                drainpipeData[time] = {
-                  MEA_WALs: [],
-                  SIG_STAs: [],
-                };
-              }
-
-              drainpipeData[time].MEA_WALs[drainpipeIndex] = MEA_WAL;
-              drainpipeData[time].SIG_STAs[drainpipeIndex] = SIG_STA;
-            });
-          }
-        }),
-      );
-    }
-  }
-  // drainpipe end
-
   const drainpipeEntires = Object.entries(drainpipeData);
   const rainfallEntries = Object.entries(rainfallData);
   const list_total_count = rainfallEntries.length;
 
   rainfallEntries
     .sort(([aTime], [bTime]) => (aTime < bTime ? 1 : aTime > bTime ? -1 : 0))
-    .slice(0, 10)
+    .slice((limit - 1) * 10, limit * 10)
     .forEach(([rainfallTime, rainfall]) => {
-      const drainpipe = {};
+      const drainpipe = [];
       const startTime = new Date(
         rainfallTime.slice(0, 4),
         rainfallTime.slice(4, 6) - 1,
@@ -215,19 +157,22 @@ const getCombinedData = async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
         );
 
         if (startTime < drainpipeDate && drainpipeDate <= endTime) {
-          drainpipe[drainpipeTime] = {
+          drainpipe.push({
+            YMD: drainpipeTime,
             MEA_WALs,
             SIG_STAs,
-          };
+          });
         }
       });
+
+      drainpipe.sort(({ YMD: aYMD }, { YMD: bYMD }) => (aYMD < bYMD ? 1 : aYMD > bYMD ? -1 : 0));
 
       const combinedData = {
         GUBN: gubn,
         GUBN_NAM: drainpipeInfos[gubn].guName,
         GU_CODE: firstRainfallData?.ListRainfallService.row[0].GU_CODE,
         GU_NAME: guName,
-        MEA_YMD: rainfallTime,
+        YMD: rainfallTime,
         rainfall,
         drainpipe,
       };
