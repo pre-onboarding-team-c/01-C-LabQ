@@ -1,5 +1,6 @@
-const { drainpipeAmounts, getIndices, numberToDateString, isTypeXml } = require('../utils');
-const { drainpipeApi } = require('../apis');
+const { getIndices, numberToDateString, isTypeXml } = require('../utils');
+const { drainpipeOpenApi } = require('../openApis');
+const { drainpipeInfos } = require('../constants');
 
 module.exports = {
   /**
@@ -27,7 +28,7 @@ module.exports = {
    * @param {number} meaYmd2 - 이 날짜를 기점으로 측정을 마칩니다. ex(2022063012)
    */
   getDrainpipe: async (limit = 1, gubn = '01', meaYmd, meaYmd2) => {
-    const [startIndex, endIndex] = getIndices(limit, drainpipeAmounts[gubn]);
+    const [startIndex, endIndex] = getIndices(limit, drainpipeInfos[gubn].amount);
 
     if (!meaYmd) {
       const currentTime = new Date();
@@ -56,7 +57,7 @@ module.exports = {
     }
 
     try {
-      const { data } = await drainpipeApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
+      const { data } = await drainpipeOpenApi.getDrainpipe(startIndex, endIndex, gubn, meaYmd, meaYmd2);
 
       if (isTypeXml(data)) {
         throw new Error('받은 데이터가 XML이 아닌 JSON 이여야 합니다(요청 값을 확인해주세요)');

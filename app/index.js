@@ -5,7 +5,7 @@ const cors = require('cors');
 
 dotenv.config();
 
-const indexRouter = require('./routers');
+const apiRouter = require('./routers');
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(
   }),
 );
 
-app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} not found`);
